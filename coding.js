@@ -52,6 +52,7 @@ const Coding = (() => {
             <div class="console-pane" id="console-out">Click Run to execute your code.</div>
           </div>
         </div>
+        <div id="hint-holder"></div>
         <div class="row" style="margin-top:0.8rem;">
           <button class="btn" id="run-btn">Run ▶</button>
           <button class="btn secondary" id="reset-btn">Reset starter code</button>
@@ -68,8 +69,8 @@ const Coding = (() => {
       tabSize: 2,
     });
 
-    document.getElementById('run-btn').addEventListener('click', () => runCode(editor.getValue()));
-    document.getElementById('reset-btn').addEventListener('click', () => editor.setValue(q.starterCode));
+    document.getElementById('run-btn').addEventListener('click', () => { runCode(editor.getValue()); revealHint(q); });
+    document.getElementById('reset-btn').addEventListener('click', () => { editor.setValue(q.starterCode); document.getElementById('hint-holder').innerHTML = ''; });
     document.getElementById('solution-btn').addEventListener('click', () => {
       showingSolution = !showingSolution;
       renderSolution(q);
@@ -79,6 +80,12 @@ const Coding = (() => {
     if (showingSolution) renderSolution(q);
     ensureMsgHandler();
     runCode(q.starterCode);
+  }
+
+  function revealHint(q) {
+    const holder = document.getElementById('hint-holder');
+    if (!holder || !q.hint) return;
+    holder.innerHTML = `<div class="explanation"><strong>Hint:</strong> ${App.escapeHtml(q.hint)}</div>`;
   }
 
   function renderSolution(q) {

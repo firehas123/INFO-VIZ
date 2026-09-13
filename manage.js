@@ -196,6 +196,9 @@ const Manage = (() => {
         <label class="field" style="margin-top:0.5rem;">Notes
           <textarea class="edit-notes" rows="2" style="width:100%;">${App.escapeHtml(q.notes || '')}</textarea>
         </label>
+        <label class="field" style="margin-top:0.5rem;">Hint (shown after Run)
+          <input type="text" class="edit-hint" value="${App.escapeHtml(q.hint || '')}" style="width:100%;">
+        </label>
         <div class="row" style="margin-top:0.6rem;">
           <button class="btn save-coding-btn" data-id="${q.id}">Save</button>
           <button class="btn secondary cancel-btn">Cancel</button>
@@ -274,6 +277,7 @@ const Manage = (() => {
     q.starterCode = card.querySelector('.edit-starter').value;
     q.solutionCode = card.querySelector('.edit-solution').value;
     q.notes = card.querySelector('.edit-notes').value.trim();
+    q.hint = card.querySelector('.edit-hint').value.trim();
     App.saveCoding();
     editingId = null;
     renderList();
@@ -305,6 +309,7 @@ const Manage = (() => {
         starterCode: '// write code that renders into #app\n',
         solutionCode: '// model solution\n',
         notes: '',
+        hint: '',
       };
       App.coding.unshift(q);
       App.saveCoding();
