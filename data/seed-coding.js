@@ -610,37 +610,35 @@ for (let i = 0; i <= 20; i++) {
 
 { id: 'code-studon-04', module: 'm1', source: 'studon',
   title: 'mapColor — linear RGB interpolation (StudOn)',
-  prompt: 'Implement <code>mapColor(value, c_min, c_max)</code>: linearly interpolate between two RGB colors (arrays of 0-255 numbers) given <code>value</code> in [0,1], returning a CSS color string. A <code>rgb_vector_to_color_string</code> helper is already provided.',
+  prompt: 'Implement <code>mapColor(value, c_left, c_right)</code>: given two RGB color arrays (0-255 numbers) and <code>value</code> in [0,1], return the linearly-interpolated <code>[r, g, b]</code> array — the exact lerp formula from the question is <code>c = a·(1−t) + b·t</code>.',
   starterCode:
-`function rgb_vector_to_color_string(vec) {
-  return \`rgb(\${Math.round(vec[0])},\${Math.round(vec[1])},\${Math.round(vec[2])})\`;
+`function mapColor(value, c_left, c_right) {
+  // TODO: lerp each channel between c_left and c_right by "value" (formula: c = a*(1-t) + b*t), return [r,g,b]
 }
 
-function mapColor(value, c_min, c_max) {
-  // TODO: lerp each channel between c_min and c_max by "value", then convert to a color string
-}
-
-// --- demo: 10-step gradient strip ---
+// --- demo: 10-step gradient strip (converts the returned array to a CSS color for display) ---
 const app = d3.select('#app');
 const strip = app.append('div').style('display', 'flex');
 for (let i = 0; i <= 10; i++) {
   const v = i / 10;
+  const rgb = mapColor(v, [255, 0, 0], [0, 0, 255]);
   strip.append('div').style('width', '24px').style('height', '40px')
-    .style('background', mapColor(v, [255, 0, 0], [0, 0, 255]));
+    .style('background', \`rgb(\${Math.round(rgb[0])},\${Math.round(rgb[1])},\${Math.round(rgb[2])})\`);
 }
 `,
   solutionCode:
-`function mapColor(value, c_min, c_max) {
+`function mapColor(value, c_left, c_right) {
     function lerp(a, b, t){
         return (1-t)*a + t*b
     }
-    let vec = [lerp(c_min[0],c_max[0],value),
-               lerp(c_min[1],c_max[1],value),
-               lerp(c_min[2],c_max[2],value)]
-    return rgb_vector_to_color_string( vec )
+    return [
+        lerp(c_left[0], c_right[0], value),
+        lerp(c_left[1], c_right[1], value),
+        lerp(c_left[2], c_right[2], value)
+    ]
 }`,
   hint: "exact lerp formula from the question, applied per r/g/b channel",
-  notes: 'lerp(a,b,t) = (1-t)*a + t*b, run independently on each of the r/g/b channels.' },
+  notes: 'lerp(a,b,t) = (1-t)*a + t*b, run independently on each of the r/g/b channels. The function returns the raw [r,g,b] array — it does not convert to a color string itself.' },
 
 { id: 'code-studon-05', module: 'm1', source: 'studon',
   title: 'mapColor — rainbow scale (StudOn)',
