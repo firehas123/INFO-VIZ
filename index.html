@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InfoVis Self-Test</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+</head>
+<body>
+<header class="topbar">
+  <h1>InfoVis Self-Test</h1>
+  <nav class="tabs">
+    <button class="tab-btn active" data-view="quiz">Quiz</button>
+    <button class="tab-btn" data-view="coding">Coding</button>
+    <button class="tab-btn" data-view="manage">Manage</button>
+    <button class="tab-btn" data-view="import">Import</button>
+    <button class="tab-btn" data-view="stats">Stats</button>
+  </nav>
+  <button id="theme-toggle" class="icon-btn" title="Toggle theme">&#9788;</button>
+</header>
+
+<main>
+  <section id="view-quiz" class="view active"></section>
+  <section id="view-coding" class="view"></section>
+  <section id="view-manage" class="view"></section>
+  <section id="view-import" class="view"></section>
+  <section id="view-stats" class="view"></section>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+<script src="data/seed-mcq.js"></script>
+<script src="data/seed-coding.js"></script>
+<script src="app.js"></script>
+<script src="quiz.js"></script>
+<script src="coding.js"></script>
+<script src="importer.js"></script>
+<script src="manage.js"></script>
+<script>App.init();</script>
+</body>
+</html>
