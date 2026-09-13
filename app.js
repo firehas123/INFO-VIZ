@@ -47,6 +47,9 @@ const App = (() => {
   function init() {
     const storedMcq = loadJSON(LS_MCQ, null);
     state.mcq = storedMcq ? mergeSeed(storedMcq, window.SEED_MCQ || []) : structuredClone(window.SEED_MCQ || []);
+    // MCQ bank is StudOn-only by design (no generated "seed" MCQs) — purge any left over
+    // in a browser that loaded an earlier version before this was decided.
+    state.mcq = state.mcq.filter(q => q.source !== 'seed');
     save(LS_MCQ, state.mcq);
 
     const storedCoding = loadJSON(LS_CODING, null);

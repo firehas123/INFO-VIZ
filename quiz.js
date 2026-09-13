@@ -27,19 +27,11 @@ const Quiz = (() => {
         <h2>Quiz setup</h2>
         <div class="row" style="margin-bottom:0.8rem;">
           <label class="field">
-            Source
-            <select id="src-filter">
-              <option value="both">Seed + StudOn</option>
-              <option value="seed">Seed only</option>
-              <option value="studon">StudOn only</option>
-            </select>
-          </label>
-          <label class="field">
             Question count
             <input type="number" id="count-filter" min="1" value="20">
           </label>
           <label class="field" style="flex-direction:row; align-items:center; gap:0.4rem; margin-top:1.1rem;">
-            <input type="checkbox" id="recall-only"> Recall-only (Notes.txt complexity items)
+            <input type="checkbox" id="recall-only"> Recall-only
           </label>
         </div>
         <div class="row" style="margin-bottom:0.8rem;">
@@ -54,13 +46,11 @@ const Quiz = (() => {
   }
 
   function startQuiz(el) {
-    const src = el.querySelector('#src-filter').value;
     const count = parseInt(el.querySelector('#count-filter').value, 10) || 20;
     const recallOnly = el.querySelector('#recall-only').checked;
     const mods = Array.from(el.querySelectorAll('.mod-check:checked')).map(c => c.value);
 
     let pool = App.mcq.filter(q => mods.includes(q.module));
-    if (src !== 'both') pool = pool.filter(q => q.source === src);
     if (recallOnly) pool = pool.filter(q => q.recall);
 
     if (pool.length === 0) {
