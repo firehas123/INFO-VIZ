@@ -94,6 +94,7 @@ const Quiz = (() => {
         </div>
         <div class="progress-bar-outer"><div class="progress-bar-inner" style="width:${progressPct}%"></div></div>
         <p class="question-text">${App.escapeHtml(q.question)}</p>
+        ${q.image ? `<div class="question-image"><img src="${q.image}" alt="reference image for this question" loading="lazy"></div>` : ''}
         ${isMulti ? '<p class="muted">Select all that apply, then submit.</p>' : ''}
         <div class="options-list" id="opts-list"></div>
         <div id="explain-holder"></div>
@@ -108,7 +109,7 @@ const Quiz = (() => {
     q.shuffledOptions.forEach((opt, idx) => {
       const row = document.createElement('div');
       row.className = 'option-row';
-      row.textContent = opt.text;
+      row.innerHTML = App.richOptionHtml(opt.text);
       row.dataset.idx = idx;
       if (isMulti) {
         const cb = document.createElement('input');
@@ -161,7 +162,11 @@ const Quiz = (() => {
     paintRevealed(el, q);
     el.querySelector('#next-btn').removeAttribute('disabled');
     const holder = el.querySelector('#explain-holder');
-    holder.innerHTML = `<div class="explanation"><strong>${correct ? '✅ Correct.' : '❌ Not quite.'}</strong> ${App.escapeHtml(q.explanation || '')}</div>`;
+    holder.innerHTML = `
+      <div class="result-banner ${correct ? 'correct' : 'incorrect'}">
+        <span class="rb-icon">${correct ? '✓' : '✕'}</span>
+        <span class="rb-body"><strong>${correct ? 'Correct' : 'Not quite'}</strong>${App.escapeHtml(q.explanation || '')}</span>
+      </div>`;
     // re-render score pill
     el.querySelectorAll('.score-pill')[1].textContent = 'Score: ' + session.score;
   }

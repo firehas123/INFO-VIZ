@@ -35,25 +35,36 @@ const App = (() => {
     localStorage.setItem(key, JSON.stringify(value));
   }
 
+  // Coding questions carry a `playground` config with real functions (buildArgs), which
+  // structuredClone() and JSON.stringify() both choke on / silently drop. Shallow-clone the
+  // top-level object only — nested config objects are treated as immutable and shared by
+  // reference, which is fine since nothing ever mutates q.playground in place.
+  function shallowClone(q) {
+    return Object.assign({}, q);
+  }
+
   function mergeSeed(existing, seed) {
     const ids = new Set(existing.map(q => q.id));
     const merged = existing.slice();
     seed.forEach(q => {
-      if (!ids.has(q.id)) merged.push(structuredClone(q));
+      if (!ids.has(q.id)) merged.push(shallowClone(q));
     });
     return merged;
   }
 
   function init() {
     const storedMcq = loadJSON(LS_MCQ, null);
-    state.mcq = storedMcq ? mergeSeed(storedMcq, window.SEED_MCQ || []) : structuredClone(window.SEED_MCQ || []);
+    state.mcq = storedMcq ? mergeSeed(storedMcq, window.SEED_MCQ || []) : (window.SEED_MCQ || []).map(shallowClone);
     // MCQ bank is StudOn-only by design (no generated "seed" MCQs) — purge any left over
     // in a browser that loaded an earlier version before this was decided.
     state.mcq = state.mcq.filter(q => q.source !== 'seed');
     save(LS_MCQ, state.mcq);
 
     const storedCoding = loadJSON(LS_CODING, null);
-    state.coding = storedCoding ? mergeSeed(storedCoding, window.SEED_CODING || []) : structuredClone(window.SEED_CODING || []);
+    state.coding = storedCoding ? mergeSeed(storedCoding, window.SEED_CODING || []) : (window.SEED_CODING || []).map(shallowClone);
+    // Coding bank is StudOn-only too now — purge any self-generated "seed" coding questions
+    // left over in a browser that loaded an earlier version before this was decided.
+    state.coding = state.coding.filter(q => q.source !== 'seed');
     save(LS_CODING, state.coding);
 
     state.progress = loadJSON(LS_PROGRESS, { answers: {} });
@@ -109,6 +120,20 @@ const App = (() => {
 
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  }
+
+  // Detects a literal hex (#rrggbb) or hsl(...) color reference inside option/question text
+  // and prefixes a small inline swatch — cheap, broad visual anchor for color-identity questions
+  // without needing a hand-authored illustration per question.
+  function richOptionHtml(text) {
+    const escaped = escapeHtml(text);
+    const hexMatch = text.match(/#[0-9a-fA-F]{6}\b/);
+    const hslMatch = text.match(/hsl\(\s*(\d+)\s*,\s*(\d+)%\s*,\s*(\d+)%\s*\)/i);
+    let css = null;
+    if (hexMatch) css = hexMatch[0];
+    else if (hslMatch) css = `hsl(${hslMatch[1]},${hslMatch[2]}%,${hslMatch[3]}%)`;
+    if (!css) return escaped;
+    return `<span class="inline-swatch" style="background:${css}"></span>${escaped}`;
   }
 
   function shuffle(arr) {
@@ -224,6 +249,6 @@ const App = (() => {
     get mcq() { return state.mcq; },
     get coding() { return state.coding; },
     get progress() { return state.progress; },
-    saveMcq, saveCoding, saveProgress, recordAnswer, nextId, escapeHtml, shuffle,
+    saveMcq, saveCoding, saveProgress, recordAnswer, nextId, escapeHtml, shuffle, richOptionHtml,
   };
 })();

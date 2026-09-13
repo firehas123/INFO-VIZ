@@ -36,6 +36,7 @@ window.SEED_MCQ = [
   explanation: '[120°, 1, 1] in HSV and [0, 1, 0] in RGB both describe pure green — hue 120° is green in HSV, and RGB (0,1,0) is green with no red or blue.' },
 
 { id: 'studon-m1-06', type: 'mcq-single', module: 'm1', source: 'studon', recall: false,
+  image: 'assets/studon-images/studon-m1-06.png',
   question: 'Which of the following color scales would you use to visualize the four seasons (winter, spring, summer, autumn)?',
   options: ['A diverging brown-to-teal scale with white at the midpoint', 'A sequential white-to-blue gradient', 'A categorical palette of 10 distinct, unordered colors', 'A multi-hue rainbow-style gradient'],
   correctIndexes: [2],
@@ -60,6 +61,7 @@ window.SEED_MCQ = [
   explanation: 'Standard CSS named-color hex values: antiquewhite is a pale cream (#FAEBD7), burlywood is a tan/brown (#DEB887), and dodgerblue is a bright blue (#1E90FF).' },
 
 { id: 'studon-m1-10', type: 'mcq-single', module: 'm1', source: 'studon', recall: false,
+  image: 'assets/studon-images/studon-m1-10.png',
   question: 'A set of RGB transfer functions is shown where the R, G, and B channels each oscillate up and down multiple times across the input range (none of the channels rises or falls monotonically). Which color map was generated with this set of transfer functions?',
   options: ['Blues colormap', 'BrBG colormap', 'Rainbow colormap'],
   correctIndexes: [2],
@@ -78,6 +80,7 @@ window.SEED_MCQ = [
   explanation: 'The four measured dimensions (sepal/petal length and width) are numeric measurements (quantitative). "Species" is a categorical label, and "Dataset order" is just a row index, not a measured attribute.' },
 
 { id: 'studon-m1-13', type: 'mcq-multi', module: 'm1', source: 'studon', recall: false,
+  image: 'assets/studon-images/studon-m1-13.png',
   question: 'Which kind of data can be colored with a categorical/qualitative color scale (a palette of 10 distinct, unordered colors)?',
   options: ['quantitative', 'nominal', 'categorical', 'ordinal'],
   correctIndexes: [1, 2],
@@ -90,6 +93,7 @@ window.SEED_MCQ = [
   explanation: 'Months are categorical (a finite set of labels) and specifically ordinal, since they have a natural order (January before February, etc.) even though the numeric distance between them is not meaningful.' },
 
 { id: 'studon-m1-15', type: 'mcq-single', module: 'm1', source: 'studon', recall: false,
+  image: 'assets/studon-images/studon-m1-15.png',
   question: 'Two continuous rainbow-style hue-range color scales (with adjustable range handles) are shown. Which kind of data can be colored with the color scales given above?',
   options: ['ordinal', 'quantitative', 'nominal'],
   correctIndexes: [2],
@@ -114,6 +118,7 @@ window.SEED_MCQ = [
   explanation: 'Party affiliation is unordered (nominal); course grades have a natural order (ordinal); height/weight are numeric measurements (quantitative).' },
 
 { id: 'studon-m1-19', type: 'mcq-multi', module: 'm1', source: 'studon', recall: false,
+  image: 'assets/studon-images/studon-m1-19.png',
   question: '[Originally a matching question] Which color-scale-type choices are correct for the given data type? (select all that apply)',
   options: ['Categorical data should use a categorical (qualitative) color scale', 'Quantitative data should use a sequential color scale', 'Categorical data should use a sequential color scale', 'Quantitative data should use a categorical (qualitative) color scale'],
   correctIndexes: [0, 1],
@@ -132,6 +137,7 @@ window.SEED_MCQ = [
   explanation: 'Standard primary/secondary hex colors: #0000FF is pure blue, #00FFFF is cyan (green+blue), #FF0000 is pure red.' },
 
 { id: 'studon-m1-22', type: 'mcq-single', module: 'm1', source: 'studon', recall: false,
+  image: 'assets/studon-images/studon-m1-22.png',
   question: 'A set of RGB transfer functions is shown where all three channels (R, G, B) start at maximum (white) and decrease monotonically as u goes from 0 to 1, with the blue channel staying highest throughout and the red channel dropping fastest. Which of the following sequential color scales was generated with these interpolation functions?',
   options: ['A light-to-dark blue gradient', 'A dark-blue → purple → pink → orange → yellow gradient (plasma-like)', 'A dark-purple → blue → teal → green → yellow-green gradient (viridis-like)'],
   correctIndexes: [0],
@@ -156,6 +162,7 @@ window.SEED_MCQ = [
   explanation: 'In HSL, hue 300° is magenta, 180° is cyan, and 60° is yellow, each at full saturation and 50% lightness.' },
 
 { id: 'studon-m1-26', type: 'mcq-single', module: 'm1', source: 'studon', recall: false,
+  image: 'assets/studon-images/studon-m1-26.png',
   question: 'A set of RGB transfer functions is shown where all three channels start near 0 (black) and end near maximum (white), each rising along a different S-curve so the midpoint region passes through varied colors before converging to white. Which of the following sequential interpolated color scales was generated with these transfer functions?',
   options: ['color scale 2 (a rainbow-like purple/green/blue gradient)', 'color scale 1 (a black → colorful → white gradient)', 'color scale 3 (a purple → pink → yellow → green gradient)'],
   correctIndexes: [1],
@@ -210,6 +217,7 @@ window.SEED_MCQ = [
   explanation: 'Gamut is the complete set of colors a given device or color model/space is capable of reproducing.' },
 
 { id: 'studon-m1-35', type: 'mcq-multi', module: 'm1', source: 'studon', recall: false,
+  image: 'assets/studon-images/studon-m1-35.png',
   question: '[Originally a matching question] Which data-type-to-color-scale-type assignments are correct? (select all that apply)',
   options: ['Categorical data: nominal → a categorical (qualitative) palette of distinct hues', 'Categorical data: ordinal → a sequential single-hue scale (e.g. light-to-dark brown)', 'Quantitative data → a sequential perceptually-uniform scale (e.g. viridis-like)', 'Categorical data: nominal → a sequential single-hue scale', 'Quantitative data → a categorical palette of distinct hues'],
   correctIndexes: [0, 1, 2],
